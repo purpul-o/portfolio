@@ -1,9 +1,164 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Hello World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(0, 0, 0);
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: rgb(200, 200, 200);
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .button, .back-button {
+            background: transparent;
+            color: rgb(200, 200, 200);
+            cursor: pointer;
+            border: 2px solid rgb(100, 100, 100);
+            border-radius: 5px;
+            transition: 300ms;
+            padding: 5px 10px;
+        }
+
+        .button {
+            font-size: 25px;
+        }
+
+        .back-button {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .button:hover, .back-button:hover {
+            color: rgb(255, 255, 255);
+            border-color: rgb(155, 155, 155);
+        }
+
+        #about-me, #projects {
+            display: none;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        #about-me p, #about-me ul, #projects p {
+            text-align: center;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #about-me ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #about-me li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        #site-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: rgb(150, 150, 150);
+            z-index: 1000;
+        }
+
+        a {
+            color: rgb(100, 149, 237);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .project {
+            margin-bottom: 30px;
+            border: 1px solid rgb(100, 100, 100);
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .project h3 {
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
-  <h1>Hello, World!</h1>
+  <div id="site-info">(Yes this site was coded by me too)</div>
+</body>
+<body>
+    <div id="main-content">
+        <div class="button-container">
+            <button class="button" onclick="showPage('projects')">Projects</button>
+            <button class="button" onclick="showPage('about-me')">About Me</button>
+        </div>
+    </div>
+    <div id="about-me">
+        <h2>About Me</h2>
+        <p>I am a scripter with more than six years of experience in programming:</p>
+        <ul>
+            <li><strong>Luau: 5 Years</strong></li>
+            <li><strong>Other Languages: 1 Year</strong></li>
+        </ul>
+        <p>I specialize in back-end development, the stuff that runs your logic under the hood. However, I can still work front-end.
+          Each project is an opportunity to innovate, always prioritizing project goals and user experience to exceed expectations.
+        </p>
+        <p><strong>Contact:</strong> <a href="https://discord.com/users/1272972877989285962" target="_blank">Discord Profile</a></p>
+        <button class="back-button" onclick="showPage('main')">Back</button>
+    </div>
+    <div id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <h3>Movement System</h3>
+            <p><strong>Includes:</strong> Local Script, Module Script, Animation Class Objects</p>
+            <a href="https://www.roblox.com/games/80980847186625/Advanced-Movement" target="_blank">(Experience)</a>
+            <a href="https://github.com/purpul-o/Movement-System" target="_blank">(Source Code)</a>
+            <a href="https://youtu.be/HGX__ezbfjQ" target="_blank">(Video 1)</a>
+            <a href="https://youtu.be/_mXL1m-VIT8" target="_blank">(Video 2)</a>
+        </div>
+        <div class="project">
+            <h3>Flappy Bird</h3>
+            <p><strong>Includes:</strong> Model, Local Scripts, Remote Events</p>
+            <p>(This project was originaly part of a another project)</p>
+            <a href="https://github.com/purpul-o/Flappy-Bird" target="_blank">(Source Code)</a>
+            <a href="https://youtu.be/fTXMrSQaooM" target="_blank">(Video)</a>
+        </div>
+        <button class="back-button" onclick="showPage('main')">Back</button>
+    </div>
+    <script>
+        function showPage(pageName) {
+          const mainContent = document.getElementById('main-content');
+          const aboutMe = document.getElementById('about-me');
+          const projects = document.getElementById('projects');
+          const siteInfo = document.getElementById('site-info');
+
+          mainContent.style.display = pageName === 'main' ? 'block' : 'none';
+          aboutMe.style.display = pageName === 'about-me' ? 'block' : 'none';
+          projects.style.display = pageName === 'projects' ? 'block' : 'none';
+          siteInfo.style.display = pageName === 'main' ? 'block' : 'none';
+        }
+    </script>
 </body>
 </html>
