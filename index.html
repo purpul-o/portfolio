@@ -79,13 +79,13 @@
             position: fixed;
             top: 10px;
             left: 10px;
-            font-size: 12px;
+            font-size: 11px;
             color: rgb(150, 150, 150);
             z-index: 1000;
         }
 
         a {
-            color: rgb(100, 149, 237);
+            color: rgb(25, 0, 255);
             text-decoration: none;
         }
 
@@ -103,10 +103,37 @@
         .project h3 {
             margin-top: 0;
         }
+
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            width: 1px;
+            height: 1px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
-  <div id="site-info">(Yes this site was coded by me too)</div>
+    <div id="stars-container"></div>
+    <div id="site-info">(Yes this site was coded by me too)</div>
 </body>
 <body>
     <div id="main-content">
@@ -117,14 +144,12 @@
     </div>
     <div id="about-me">
         <h2>About Me</h2>
-        <p>I am a scripter with more than six years of experience in programming:</p>
+        <p>I'm a skilled scripter with over six years of programming experience:</p>
         <ul>
-            <li><strong>Luau: 5 Years</strong></li>
-            <li><strong>Other Languages: 1 Year</strong></li>
+            <li><strong>Luau:</strong> 5 years of expertise</li>
+            <li><strong>Other Languages:</strong> 1 year of experience</li>
         </ul>
-        <p>I specialize in back-end development, the stuff that runs your logic under the hood. However, I can still work front-end.
-          Each project is an opportunity to innovate, always prioritizing project goals and user experience to exceed expectations.
-        </p>
+        <p>My only challenge is Advanced math and complex algorithms—but I always find a way to get the job done.</p>        
         <p><strong>Contact:</strong> <a href="https://discord.com/users/1272972877989285962" target="_blank">Discord Profile</a></p>
         <button class="back-button" onclick="showPage('main')">Back</button>
     </div>
@@ -149,7 +174,7 @@
         <div class="project">
             <h3>Building System</h3>
             <p><strong>Includes:</strong> Scripts, Local Scripts, Remote Events..</p>
-            <p style="color: rgb(255, 0, 0);">(Source Especially Quality)</p>
+            <p style="color: rgb(255, 215, 0);">(Source Especially Quality)</p>
             <a href="https://github.com/purpul-o/Building-System" target="_blank">(Source Code)</a>
             <a href="https://imgur.com/a/m1UlVP4" target="_blank">(Image)</a>
         </div>
@@ -167,6 +192,24 @@
           projects.style.display = pageName === 'projects' ? 'block' : 'none';
           siteInfo.style.display = pageName === 'main' ? 'block' : 'none';
         }
+    </script>
+    <script>
+        function stars() {
+            const Container = document.getElementById('stars-container');
+
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                Container.appendChild(star);
+            }
+        }
+
+        window.addEventListener('load', stars);
     </script>
 </body>
 </html>
