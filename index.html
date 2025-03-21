@@ -99,8 +99,9 @@
         }
 
         a {
-            color: rgb(25, 0, 255);
+            color: rgb(255, 255, 255);
             text-decoration: none;
+            font-weight: 300;
             font-family: 'Roboto', sans-serif;
         }
 
@@ -108,10 +109,20 @@
             text-decoration: underline;
         }
 
-        .projects {
+        .header {
             margin-top: 20px;
             color: rgb(225, 0, 255);
             font-size: larger;
+        }
+
+        .pure {
+            font-weight: 300;
+            color: rgb(255, 255, 255);
+        }
+
+        .thick {
+            font-weight: 400;
+            color: rgb(255, 255, 255);
         }
 
         .project {
@@ -120,14 +131,18 @@
             padding: 20px;
         }
 
-        .project px {
-            margin-top: 0;
-            color: rgb(225, 0, 255);
-            font-size: larger;
-        }
-
         .project pf {
             margin-top: 0;
+            color: rgb(225, 0, 255);
+        }
+
+        .project pg {
+            font-weight: 300;
+            color: rgb(255, 255, 255);
+        }
+
+        .project px {
+            font-weight: 400;
             color: rgb(225, 0, 255);
         }
 
@@ -185,34 +200,36 @@
         </div>
     </div>
     <div id="about-me">
-        <div class="projects">
+        <div class="header">
             <p>ABOUT ME</p>
         </div>
-        <p>I'm a skilled scripter with over six years of programming experience:</p>
-        <ul>
-            <li><strong>Luau:</strong> 5 years of expertise</li>
-            <li><strong>Other Languages:</strong> 1 year of experience</li>
-        </ul>
-        <p>My only challenge is Advanced math and complex algorithms—but I always find a way to get the job done.</p>        
-        <p><strong>Contact:</strong> <a href="https://discord.com/users/1272972877989285962" target="_blank">Discord Profile</a></p>
+        <div class="pure">
+            <p>I'm a skilled scripter with over six years of programming experience:</p>
+            <ul>
+                <li><strong>Luau:</strong> 5 years of expertise</li>
+                <li><strong>Other Languages:</strong> 1 year of experience</li>
+            </ul>
+            <p>My only challenge is Advanced math and complex algorithms—but I always find a way to get the job done.</p>        
+            <p><strong>Contact:</strong> <a href="https://discord.com/users/1272972877989285962" target="_blank">Discord Profile</a></p>
+        </div>
         <button class="button back-button"  onclick="showPage('main')">
             BACK
             <canvas class="canvas"></canvas>
         </button>
     </div>
     <div id="projects">
-        <div class="projects">
+        <div class="header">
             <p>PROJECTS</p>
         </div>
         <div class="project">
-            <px>GRABBING SYSTEM</px>
-            <p><pf>INCLUDES:</pf> Scripts, Local Scripts, Remote Function..</p>
+            <div class="thick"><pf>GRABBING SYSTEM</pf></div>
+            <p><px>INCLUDES:</px> <pg>Scripts, Local Scripts, Remote Function..</pg></p>
             <a href="https://github.com/purpul-o/Grabbing-System" target="_blank">(Source Code)</a>
             <a href="https://youtu.be/_3ikw-fhi4g" target="_blank">(Video)</a>
         </div>
         <div class="project">
-            <px>COMBAT SYSTEM</px>
-            <p><pf>INCLUDES:</pf> Scripts, Local Scripts, Remote Event..</p>
+            <div class="thick"><pf>COMBAT SYSTEM</pf></div>
+            <p><px>INCLUDES:</px> <pg>Scripts, Local Scripts, Remote Event..</pg></p>
             <a href="https://github.com/purpul-o/Combat-System" target="_blank">(Source Code)</a>
             <a href="https://youtu.be/5uxQA52swWw" target="_blank">(Video)</a>
         </div>
