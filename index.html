@@ -129,6 +129,31 @@
             margin-bottom: 40px;
             border: 1px solid rgb(225, 0, 255);
             padding: 20px;
+            position: relative;
+        }
+
+        .project-video {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0.1%;
+            width: 99.9%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-toggle {
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+        }
+
+        .video-active .project-video {
+            display: block;
+        }
+
+        .video-active > *:not(.project-video) {
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .project pf {
@@ -225,19 +250,38 @@
             <div class="thick"><pf>GRABBING SYSTEM</pf></div>
             <p><px>INCLUDES:</px> <pg>Scripts, Local Scripts, Remote Function..</pg></p>
             <a href="https://github.com/purpul-o/Grabbing-System" target="_blank">(Source Code)</a>
-            <a href="https://youtu.be/_3ikw-fhi4g" target="_blank">(Video)</a>
+            <span class="video-toggle"><pg>(Video)</pg></span>
+            <video src="V1.mp4" class="project-video" loop></video>
         </div>
         <div class="project">
             <div class="thick"><pf>COMBAT SYSTEM</pf></div>
             <p><px>INCLUDES:</px> <pg>Scripts, Local Scripts, Remote Event..</pg></p>
             <a href="https://github.com/purpul-o/Combat-System" target="_blank">(Source Code)</a>
-            <a href="https://youtu.be/5uxQA52swWw" target="_blank">(Video)</a>
+            <span class="video-toggle"><pg>(Video)</pg></span>
+            <video src="V0.mp4" class="project-video" loop></video>
         </div>
         <button class="button back-button"  onclick="showPage('main')">
             BACK
             <canvas class="canvas"></canvas>
         </button>
     </div>
+    <script>
+        document.querySelectorAll('.video-toggle').forEach(toggle => {
+            toggle.addEventListener('mouseenter', function() {
+                const project = this.closest('.project');
+                const video = project.querySelector('.project-video');
+
+                project.classList.add('video-active');
+                video.play();
+
+                setTimeout(() => {
+                    project.classList.remove('video-active');
+                    video.pause();
+                    video.currentTime = 0;
+                }, video.duration * 1000);
+            });
+        });
+    </script>
     <script>
         function showPage(pageName) {
           const mainContent = document.getElementById('main-content');
