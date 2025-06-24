@@ -1,362 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">    
-    <style>
-        * {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            background-color: rgb(0, 0, 0);
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: rgb(200, 200, 200);
-            box-sizing: border-box;
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .button {
-            position: relative;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-            background-color: #000;
-            color: rgb(225, 0, 255);
-            border: 1px solid rgb(225, 0, 255);
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        .button:hover .canvas {
-            display: block;
-        }
-
-        .canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            display: block;
-        }
-
-        .back-button .canvas {
-            left: 6%;
-        }
-
-        #about-me, #projects {
-            display: none;
-            text-align: center;
-            max-width: 800px;
-            padding: 40px;
-            overflow-y: auto;
-            max-height: 80vh;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        #about-me p, #about-me ul, #projects p {
-            text-align: center;
-            line-height: 1.6;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #about-me ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #about-me li {
-            display: inline-block;
-            margin: 0 15px;
-        }
-
-        #site-info {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            font-size: 11px;
-            font-family: 'Roboto', sans-serif;
-            color: rgb(150, 150, 150);
-            z-index: 1000;
-        }
-
-        a {
-            color: rgb(255, 255, 255);
-            text-decoration: none;
-            font-weight: 300;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .header {
-            margin-top: 20px;
-            color: rgb(225, 0, 255);
-            font-size: larger;
-        }
-
-        .pure {
-            font-weight: 300;
-            color: rgb(255, 255, 255);
-        }
-
-        .thick {
-            font-weight: 400;
-            color: rgb(255, 255, 255);
-        }
-
-        .project {
-            margin-bottom: 40px;
-            border: 1px solid rgb(225, 0, 255);
-            padding: 20px;
-            position: relative;
-        }
-
-        .project pf {
-            margin-top: 0;
-            color: rgb(225, 0, 255);
-        }
-
-        .project pg {
-            font-weight: 300;
-            color: rgb(255, 255, 255);
-        }
-
-        .project px {
-            font-weight: 400;
-            color: rgb(225, 0, 255);
-        }
-
-        #stars-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
-            opacity: 0;
-            border-radius: 50%;
-            box-shadow: 0 0 5px white;
-            animation: twinkle 5s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes move {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(-100vw) translateY(20vw);
-                opacity: 0;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: black; overflow: hidden; font-family: 'Inter', sans-serif; }
+    canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; display: block; z-index: 1; }
+    #starsCanvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+    .badge-container { display: flex; gap: 0.5rem; align-items: center; position: absolute; top: 0.75rem; right: 0.75rem; }
+    .tooltiptext { visibility: hidden; width: 130px; box-shadow: 0 0px 12px rgb(142, 45, 226); color: #fff; text-align: center; padding: 6px 6px; border-radius: 4px; font-weight: 300; font-size: 0.7rem; position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%) translateY(-12%); opacity: 0; transition: opacity 0.15s; z-index: 3; }
+    .tooltiptext::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: rgba(0,0,0,0.85) transparent transparent transparent; }
+    .nfp-badge:hover .tooltiptext { visibility: visible; opacity: 1; }
+    .center-text-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 3; }
+    .center-text { position: absolute; top: 0; left: 0; font-size: 2.75rem; font-weight: 500; letter-spacing: 0.15em; pointer-events: none; transition: translate 0.15s ease; width: 100%; }
+    .center-text.main { color: rgba(255, 255, 255, 0.8); z-index: 2; translate: 0 0; }
+    .center-text.echo { background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; text-shadow: 0 0 8px rgba(142, 45, 226, 0.8); translate: 4px 2.5px; z-index: 1; }
+    .button-container { margin-top: 3.3rem; display: flex; justify-content: center; gap: 1.15rem; opacity: 0; translate: 0 13px; transition: opacity 0.15s ease, translate 0.15s ease; position: relative; z-index: 0; }
+    .button-container button, .back-button { user-select: none; -webkit-user-select: none; -ms-user-select: none; padding: 0.6rem 1.06rem; font-size: 0.75rem; font-weight: 100; border: none; border-radius: 3px; background: linear-gradient(145deg, rgba(142, 45, 226, 0.85), rgba(74, 0, 224, 0.85)); color: white; cursor: pointer; box-shadow: 0 0px 12px rgb(142, 45, 226); transition: all 0.05s ease-out; }
+    .button-container button:hover, .back-button:hover { background: linear-gradient(145deg, #9b4dff, #6200ff); transform: translateY(-1.5px); box-shadow: 0 0px 12px rgba(142, 45, 226, 0.8); }
+    .hover-active .center-text.main { translate: 0 -10px; }
+    .hover-active .center-text.echo { translate: 4px calc(2.5px - 10px); }
+    .hover-active .button-container { opacity: 1; pointer-events: auto; translate: 0 0; }
+    .page { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; z-index: 4; font-size: 1.1rem; width: 90%; max-width: 800px; padding: 2rem; box-sizing: border-box; }
+    .page .aboutContent { transform: translateY(-50%); }
+    .page.active { display: block; }
+    .page h2 { margin-bottom: 1rem; }
+    .back-button { display: block; align-self: center; margin-top: auto; margin-left: auto; margin-right: auto; }
+    .project-frame { position: relative; overflow: visible; display: flex; flex-direction: row; box-shadow: 0 0px 12px rgb(142, 45, 226); border-radius: 3px; margin: 1.25rem 0; max-width: 600px; margin-left: auto; margin-right: auto; padding: 1rem; gap: 1rem; align-items: center; }
+    .project-frame video { width: 45%; border-radius: 3px; }
+    .project-frame .desc { width: 55%; color: #ccc; font-size: 0.95rem; }
+    .project-frame .desc h3 { font-size: 1.2rem; font-weight: 600; margin: 0 0 0.5rem 0; color: #eee; }
+    .project-frame .desc p { font-size: 0.95rem; font-weight: 400; color: #ccc; margin: 0; }
+    .nfp-badge { user-select: none; -webkit-user-select: none; -ms-user-select: none; position: relative; cursor: default; background: linear-gradient(145deg, #9b4dff, #6200ff); color: white; font-weight: 600; font-size: 0.65rem; padding: 0.25rem 0.55rem; border-radius: 3px; letter-spacing: 1px; box-shadow: 0 0px 8px rgb(142, 45, 226); z-index: 2; }
+    .src-badge { user-select: none; -webkit-user-select: none; -ms-user-select: none; position: relative; cursor: default; background: linear-gradient(145deg,#b1b405,#998304); color: white; font-weight: 600; font-size: 0.65rem; padding: 0.25rem 0.55rem; border-radius: 3px; letter-spacing: 1px; box-shadow:0 0px 8px rgb(145, 155, 2); z-index: 2; transition: box-shadow 0.15s ease; }
+    .src-badge:hover { cursor: pointer; box-shadow:0 0px 12px rgb(145, 155, 2); }
+    .image-scroll { display: flex; overflow-x: visible; justify-content: flex-start; scrollbar-width: none; -ms-overflow-style: none; }
+    .image-scroll::-webkit-scrollbar { display: none; }
+    .image-scroll a { flex: 0 0 auto; margin: 0 0.5rem; display: block; }
+    .image-scroll img { width: auto; height: 180px; border-radius: 8px; object-fit: contain; transition: transform 0.15s; }
+    .image-scroll img:hover { transform: scale(1.08); }
+    .image-scroll a:first-child { margin-left: auto; }
+    .image-scroll a:last-child { margin-right: auto; }
+    .badge-link { text-decoration: none; display: inline-block; }
+    .badge-link:link, .badge-link:visited, .badge-link:hover, .badge-link:active { text-decoration: none; }
+    .site-footer { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); font-size: 1.2vmin; color: rgba(255, 255, 255, 0.6); z-index: 5; pointer-events: none; }
+    @media (pointer: coarse) { .button-container { opacity: 1 !important; transform: translateY(0) !important; pointer-events: auto !important; } }
+  </style>
 </head>
 <body>
-    <div id="stars-container"></div>
-    <div id="site-info">(Yes this site was coded by me too)</div>
-    <div id="main-content">
-        <div class="button-container">
-            <button class="button"  onclick="showPage('projects')">
-                PROJECTS
-                <canvas class="canvas"></canvas>
-            </button>
-            <button class="button"  onclick="showPage('about-me')">
-                ABOUT ME
-                <canvas class="canvas"></canvas>
-            </button>
-        </div>
+  <canvas id="waveCanvas"></canvas>
+  <canvas id="starsCanvas"></canvas>
+  <div class="center-text-container" id="textContainer">
+    <div class="center-text echo" id="echoText">PURPUL</div>
+    <div class="center-text main" id="mainText">PURPUL</div>
+    <div class="button-container">
+      <button onclick="showPage('projects')">PROJECTS</button>
+      <button onclick="showPage('about')">ABOUT ME</button>
     </div>
-    <div id="about-me">
-        <div class="header">
-            <p>ABOUT ME</p>
+  </div>
+  <div class="page" id="projectsPage">
+    <div class="project-frame">
+      <div class="badge-container">
+        <a href="https://github.com/purpul-o/Project-Hallucination/tree/main" target="_blank" class="badge-link">
+          <div class="src-badge">SRC</div>
+        </a>
+        <div class="nfp-badge">
+          NFP
+          <span class="tooltiptext">Not For Production</span>
         </div>
-        <div class="pure">
-            <p>Hi, I'm a skilled scripter with over six years of programming experience:</p>
-            <ul>
-                <li><strong>Luau:</strong> 5 years of experience</li>
-                <li><strong>Other Languages:</strong> 1 year of experience</li>
-            </ul>
-            <p>I've contributed to over 19M visits on Roblox. I can help with almost anything. Just DM me.</p>        
-            <p><strong>Contact:</strong> <a href="https://discord.com/users/1272972877989285962" target="_blank">Discord Profile</a></p>
-        </div>
-        <button class="button back-button"  onclick="showPage('main')">
-            BACK
-            <canvas class="canvas"></canvas>
-        </button>
+      </div>
+      <video controls muted autoplay loop>
+        <source src="assets/vid/project-hallucination.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+      <div class="desc">
+        <h3>Project Hallucination</h3>
+        <p>A semi-realistic, configurable vehicle and suspension system.</p>
+      </div>
     </div>
-    <div id="projects">
-        <div class="header">
-            <p>PROJECTS</p>
-        </div>
-        <div class="project">
-            <div class="thick"><pf>GRABBING SYSTEM</pf></div>
-            <p><px>INCLUDES:</px> <pg>Scripts, Local Scripts, Remote Function..</pg></p>
-            <a href="https://github.com/purpul-o/Grabbing-System" target="_blank">(Source Code)</a>
-            <a href="https://youtu.be/C9IKhqUVMLY" target="_blank">(View)</a>
-        </div>
-        <div class="project">
-            <div class="thick"><pf>COMBAT SYSTEM</pf></div>
-            <p><px>INCLUDES:</px> <pg>Scripts, Local Scripts, Remote Event..</pg></p>
-            <a href="https://github.com/purpul-o/Combat-System" target="_blank">(Source Code)</a>
-            <a href="https://youtu.be/TNF8fQVM84E" target="_blank">(View)</a>
-        </div>
-        <div class="project">
-            <div class="thick"><pf>TERRAIN GENERATION</pf></div>
-            <p><px>INCLUDES:</px> <pg>Local Scripts, Module Scripts, Threads..</pg></p>
-            <a href="https://github.com/purpul-o/Terrain-Generation" target="_blank">(Source Code)</a>
-            <a href="https://youtu.be/AwlynpERbf0" target="_blank">(View)</a>
-        </div>
-        <button class="button back-button"  onclick="showPage('main')">
-            BACK
-            <canvas class="canvas"></canvas>
-        </button>
+    <button class="back-button" onclick="goBack()">BACK</button>
+  </div>
+  <div class="page" id="aboutPage">
+    <div class="image-scroll">
+      <a href="https://www.roblox.com/games/17083240635/Slayer-Online" target="_blank">
+        <img src="assets/img/SlayerOnline.webp" alt="Slayer Online">
+      </a>
+      <a href="https://www.roblox.com/games/18967105490/Wagarashi" target="_blank">
+        <img src="assets/img/Wagarashi.png" alt="Wagarashi">
+      </a>
     </div>
-    <script>
-        function showPage(pageName) {
-          const mainContent = document.getElementById('main-content');
-          const aboutMe = document.getElementById('about-me');
-          const projects = document.getElementById('projects');
-          const siteInfo = document.getElementById('site-info');
+    <div class="aboutContent">
+      <p style="margin-top:5.2rem;max-width:600px;margin-inline:auto;text-align:center;">
+        Hey, I’m purpul. I’ve been scripting in Luau for 5+ years and have contributed to 22.5M+ visits on Roblox.<br><br>
+        If you want to commission or hire me, you can add me on Discord: <u>@lama1k</u>
+      </p>
+      <button class="back-button" onclick="goBack()">BACK</button>
+    </div>
+  </div>
 
-          mainContent.style.display = pageName === 'main' ? 'block' : 'none';
-          aboutMe.style.display = pageName === 'about-me' ? 'block' : 'none';
-          projects.style.display = pageName === 'projects' ? 'block' : 'none';
-          siteInfo.style.display = pageName === 'main' ? 'block' : 'none';
+  <footer class="site-footer">
+    © 2025 purpul. All rights not reserved... feel free to use the source.
+  </footer>
+
+  <script>
+    // Canvas elements
+    const waveCanvas = document.getElementById("waveCanvas");
+    const waveCtx = waveCanvas.getContext("2d");
+    const starsCanvas = document.getElementById("starsCanvas");
+    const starsCtx = starsCanvas.getContext("2d");
+    const textContainer = document.getElementById("textContainer");
+    let canvasWidth, canvasHeight, pixelRatio = 1;
+    let animationTime = 0;
+    let stars = [];
+
+    /**
+     * Initializes and sets up all canvas elements.
+     */
+    function setupCanvases() {
+      function resizeWaveCanvas() {
+        pixelRatio = window.devicePixelRatio || 1;
+        canvasWidth = window.innerWidth;
+        canvasHeight = window.innerHeight;
+        waveCanvas.width = canvasWidth * pixelRatio;
+        waveCanvas.height = canvasHeight * pixelRatio;
+        waveCanvas.style.width = `${canvasWidth}px`;
+        waveCanvas.style.height = `${canvasHeight}px`;
+        waveCtx.setTransform(1, 0, 0, 1, 0, 0);
+        waveCtx.scale(pixelRatio, pixelRatio);
+      }
+
+      function resizeStarsCanvas() {
+        starsCanvas.width = window.innerWidth;
+        starsCanvas.height = window.innerHeight;
+      }
+
+      /**
+       * Draws a wave on the canvas.
+       * @param {number} yOffset Vertical offset
+       * @param {number} amplitude Wave height
+       * @param {number} frequency Wave frequency
+       * @param {number} speed Animation speed
+       * @param {number} opacity Alpha value
+       */
+      function drawWave(yOffset, amplitude, frequency, speed, opacity) {
+        waveCtx.beginPath();
+        waveCtx.moveTo(0, canvasHeight);
+        for (let x = 0; x <= canvasWidth; x++) {
+          const y = Math.sin((x * frequency + animationTime * speed)) * amplitude + yOffset;
+          waveCtx.lineTo(x, y);
         }
-    </script>
-    <script>
-        const buttons = document.querySelectorAll('.button');
+        waveCtx.lineTo(canvasWidth, canvasHeight);
+        waveCtx.closePath();
+        const gradient = waveCtx.createLinearGradient(0, 0, 0, canvasHeight);
+        gradient.addColorStop(0, `rgba(142, 45, 226, ${opacity})`);
+        gradient.addColorStop(1, `rgba(74, 0, 224, ${opacity})`);
+        waveCtx.fillStyle = gradient;
+        waveCtx.fill();
+      }
 
-        buttons.forEach(button => {
-            const canvas = button.querySelector('.canvas');
-            const ctx = canvas.getContext('2d');
+      function animateWaves() {
+        waveCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+        drawWave(canvasHeight * 0.82, 25, 0.004, 0.015, 0.9);
+        drawWave(canvasHeight * 0.9, 25, 0.0035, 0.02, 1.0);
+        animationTime += 1;
+        requestAnimationFrame(animateWaves);
+      }
 
-            let interval;
-            let timeout;
-            
-            button.addEventListener('mouseenter', () => {
-                canvas.width = button.offsetWidth;
-                canvas.height = button.offsetHeight;
-
-                const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-                const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                const nums = '0123456789';
-
-                const alphabet = katakana + latin + nums;
-
-                const fontSize = 10;
-                const columns = Math.floor(canvas.width / fontSize);
-
-                const rainDrops = Array(columns).fill().map(() => Math.random() < 0.7 ? Math.floor(Math.random() * canvas.height / fontSize) : null);
-
-                function draw() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    ctx.fillStyle = 'rgb(225, 0, 255)';
-                    ctx.font = fontSize + 'px monospace';
-
-                    for (let i = 0; i < rainDrops.length; i++) {
-                        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.7) {
-                            rainDrops[i] = 0;
-                        }
-                        rainDrops[i]++;
-                    }
-                }
-
-                timeout = setTimeout(() => {
-                    draw();
-                    interval = setInterval(draw, 20);
-                }, 5);
-            });
-
-            button.addEventListener('mouseleave', () => {
-                clearTimeout(timeout);
-                clearInterval(interval);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            });
-        });
-    </script>
-    <script>
-        function stars() {
-            const Container = document.getElementById('stars-container');
-
-            function static() {
-                const staticStars = Container.querySelectorAll('.star.static');
-                staticStars.forEach(star => star.remove());
-
-                for (let i = 0; i < 250; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star static';
-                    star.style.scale = Math.random() * 0.2;
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.top = `${Math.random() * 100}%`;
-                    star.style.animationDelay = `${Math.random() * 1}s`;
-
-                    Container.appendChild(star);
-                }
-            }
-
-            function moving() {
-                for (let i = 0; i < 20; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star moving';
-                    star.style.scale = Math.random() * 0.5;
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.top = `${Math.random() * 100}%`;
-                    star.style.animation = `move linear infinite`;
-                    star.style.animationDuration = `${7 + Math.random() * 5}s`;
-
-                    Container.appendChild(star);
-                }
-            }
-
-            static();
-            moving();
-
-            setInterval(static, 4400);
+      function createStars(count) {
+        stars = [];
+        for (let i = 0; i < count; i++) {
+          stars.push({
+            x: Math.random() * starsCanvas.width,
+            y: Math.random() * starsCanvas.height,
+            radius: Math.random() * 0.05 + 0.05,
+            alpha: Math.random(),
+            fade: Math.random() * 0.02 + 0.005
+          });
         }
+      }
 
-        window.addEventListener('load', stars);
-    </script>
+      function animateStars() {
+        starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+        for (const star of stars) {
+          star.alpha += star.fade;
+          if (star.alpha <= 0 || star.alpha >= 1) star.fade = -star.fade;
+          starsCtx.beginPath();
+          starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          starsCtx.fillStyle = `rgba(200, 200, 255, ${star.alpha})`;
+          starsCtx.fill();
+        }
+        requestAnimationFrame(animateStars);
+      }
+
+      function handleResize() {
+        resizeWaveCanvas();
+        resizeStarsCanvas();
+        createStars(100);
+      }
+
+      // Initial setup
+      resizeWaveCanvas();
+      resizeStarsCanvas();
+      createStars(100);
+      animateStars();
+      animateWaves();
+
+      // Event listeners
+      window.addEventListener("resize", handleResize);
+    }
+
+    /**
+     * Sets up the hover interactivity for the main text container.
+     */
+    function setupHoverTrigger() {
+      document.addEventListener("mousemove", (event) => {
+        const rect = textContainer.getBoundingClientRect();
+        const dist = Math.hypot(
+          event.clientX - (rect.left + rect.width / 2),
+          event.clientY - (rect.top + rect.height / 2)
+        );
+        textContainer.classList.toggle('hover-active', dist < 125);
+      });
+    }
+
+    /**
+     * Shows the specified page.
+     * @param {string} pageId The ID of the page to show
+     */
+    function showPage(pageId) {
+      textContainer.style.display = "none";
+      document.querySelectorAll('.page').forEach(page => page.classList.remove("active"));
+      document.getElementById(`${pageId}Page`).classList.add("active");
+    }
+
+    /**
+     * Returns to the main view.
+     */
+    function goBack() {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove("active"));
+      textContainer.style.display = "block";
+    }
+
+    // Initialize everything
+    setupCanvases();
+    setupHoverTrigger();
+  </script>
 </body>
 </html>
