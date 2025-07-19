@@ -93,8 +93,7 @@
     <div class="aboutContent">
       <p style="margin-top:5.2rem;max-width:600px;margin-inline:auto;text-align:center;">
         Hey, I’m purpul. I’ve been scripting in Luau for 5+ years and have contributed to 22.5M+ visits on Roblox.
-        I only take on short-term projects, so I don’t accept full game commissions or more than two commissions at once.
-        
+        I only take on short-term projects, so I don’t accept full game commissions or more than two commissions at once. <br><br>
         If you want to commission or hire me, you can add me on Discord: <u>@lama1k</u>
       </p>
       <button class="back-button" onclick="goBack()">BACK</button>
@@ -106,7 +105,6 @@
   </footer>
 
   <script>
-    // Canvas elements
     const waveCanvas = document.getElementById("waveCanvas");
     const waveCtx = waveCanvas.getContext("2d");
     const starsCanvas = document.getElementById("starsCanvas");
@@ -117,9 +115,6 @@
     let lastTimestamp = performance.now();
     let stars = [];
 
-    /**
-     * Initializes and sets up all canvas elements.
-     */
     function setupCanvases() {
       function resizeWaveCanvas() {
         pixelRatio = window.devicePixelRatio || 1;
@@ -138,14 +133,6 @@
         starsCanvas.height = window.innerHeight;
       }
 
-      /**
-       * Draws a wave on the canvas.
-       * @param {number} yOffset Vertical offset
-       * @param {number} amplitude Wave height
-       * @param {number} frequency Wave frequency
-       * @param {number} speed Animation speed
-       * @param {number} opacity Alpha value
-       */
       function drawWave(yOffset, amplitude, frequency, speed, opacity) {
         waveCtx.beginPath();
         waveCtx.moveTo(0, canvasHeight);
@@ -206,20 +193,15 @@
         createStars(100);
       }
 
-      // Initial setup
       resizeWaveCanvas();
       resizeStarsCanvas();
       createStars(100);
       animateStars();
       requestAnimationFrame(animateWaves);
 
-      // Event listeners
       window.addEventListener("resize", handleResize);
     }
 
-    /**
-     * Sets up the hover interactivity for the main text container.
-     */
     function setupHoverTrigger() {
       document.addEventListener("mousemove", (event) => {
         const rect = textContainer.getBoundingClientRect();
@@ -231,25 +213,17 @@
       });
     }
 
-    /**
-     * Shows the specified page.
-     * @param {string} pageId The ID of the page to show
-     */
     function showPage(pageId) {
       textContainer.style.display = "none";
       document.querySelectorAll('.page').forEach(page => page.classList.remove("active"));
       document.getElementById(`${pageId}Page`).classList.add("active");
     }
-
-    /**
-     * Returns to the main view.
-     */
+    
     function goBack() {
       document.querySelectorAll('.page').forEach(page => page.classList.remove("active"));
       textContainer.style.display = "block";
     }
 
-    // Initialize everything
     setupCanvases();
     setupHoverTrigger();
   </script>
