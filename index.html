@@ -23,7 +23,7 @@
     .hover-active .center-text.echo { translate: 4px calc(2.5px - 10px); }
     .hover-active .button-container { opacity: 1; pointer-events: auto; translate: 0 0; }
     .page { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center; z-index: 4; font-size: 1.1rem; width: 90%; max-width: 800px; padding: 2rem; box-sizing: border-box; }
-    .page .aboutContent { transform: translateY(-50%); }
+    .page .aboutContent { margin-top: 0; }
     .page.active { display: block; }
     .page h2 { margin-bottom: 1rem; }
     .back-button { display: block; align-self: center; margin-top: auto; margin-left: auto; margin-right: auto; }
@@ -35,17 +35,28 @@
     .nfp-badge { user-select: none; -webkit-user-select: none; -ms-user-select: none; position: relative; cursor: default; background: linear-gradient(145deg, #9b4dff, #6200ff); color: white; font-weight: 600; font-size: 0.65rem; padding: 0.25rem 0.55rem; border-radius: 3px; letter-spacing: 1px; box-shadow: 0 0px 8px #8e2de2; z-index: 2; }
     .src-badge { user-select: none; -webkit-user-select: none; -ms-user-select: none; position: relative; cursor: default; background: linear-gradient(145deg,#b1b405,#998304); color: white; font-weight: 600; font-size: 0.65rem; padding: 0.25rem 0.55rem; border-radius: 3px; letter-spacing: 1px; box-shadow:0 0px 8px #919b02; z-index: 2; transition: box-shadow 0.15s ease; }
     .src-badge:hover { cursor: pointer; box-shadow:0 0px 12px #919b02; }
-    .image-scroll { display: flex; overflow-x: visible; justify-content: flex-start; scrollbar-width: none; -ms-overflow-style: none; }
+    .image-scroll { display: flex; overflow-x: visible; justify-content: flex-start; scrollbar-width: none; -ms-overflow-style: none; margin-bottom: 1.2rem; }
     .image-scroll::-webkit-scrollbar { display: none; }
     .image-scroll a { flex: 0 0 auto; margin: 0 0.5rem; display: block; }
     .image-scroll img { width: auto; height: 180px; border-radius: 8px; object-fit: contain; transition: transform 0.15s; }
     .image-scroll img:hover { transform: scale(1.08); }
     .image-scroll a:first-child { margin-left: auto; }
     .image-scroll a:last-child { margin-right: auto; }
+    .aboutContent p {
+      max-width: 600px;
+      margin-inline: auto;
+      text-align: center;
+      margin-top: 0;
+    }
     .badge-link { text-decoration: none; display: inline-block; }
     .badge-link:link, .badge-link:visited, .badge-link:hover, .badge-link:active { text-decoration: none; }
     .site-footer { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); font-size: 1.2vmin; color: #ffffff99; z-index: 5; pointer-events: none; }
     @media (pointer: coarse) { .button-container { opacity: 1 !important; transform: translateY(0) !important; pointer-events: auto !important; } }
+    @media (max-width: 700px) {
+      .aboutContent p { font-size: 0.96rem; }
+      .image-scroll img { height: 120px; }
+      .page { font-size: 1rem; padding: 1.1rem; }
+    }
   </style>
 </head>
 <body>
@@ -84,14 +95,14 @@
   <div class="page" id="aboutPage">
     <div class="image-scroll">
       <a href="https://www.roblox.com/games/17083240635/Slayer-Online" target="_blank">
-        <img src="assets/img/SlayerOnline.webp" alt="Slayer Online">
+        <img src="assets/imgs/SlayerOnline.webp" alt="Slayer Online">
       </a>
       <a href="https://www.roblox.com/games/18967105490/Wagarashi" target="_blank">
-        <img src="assets/img/Wagarashi.png" alt="Wagarashi">
+        <img src="assets/imgs/Wagarashi.png" alt="Wagarashi">
       </a>
     </div>
     <div class="aboutContent">
-      <p style="margin-top:5.2rem;max-width:600px;margin-inline:auto;text-align:center;">
+      <p>
         Hey, I’m purpul. I’ve been scripting in Luau for 5+ years and have contributed to 22.5M+ visits on Roblox.
         I only take on short-term projects, so I don’t accept full game commissions or more than two commissions at once. <br><br>
         If you want to commission or hire me, you can add me on Discord: <u>@lama1k</u>
@@ -99,11 +110,9 @@
       <button class="back-button" onclick="goBack()">BACK</button>
     </div>
   </div>
-
   <footer class="site-footer">
     © 2025 purpul. All rights not reserved... feel free to use the source.
   </footer>
-
   <script>
     const waveCanvas = document.getElementById("waveCanvas");
     const waveCtx = waveCanvas.getContext("2d");
